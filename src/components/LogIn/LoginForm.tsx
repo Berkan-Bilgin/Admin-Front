@@ -5,6 +5,7 @@ function LoginForm() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
+  /** */
   const handleSubmit = (event: any) => {
     event.preventDefault();
     // Burada giriş doğrulaması ve/veya API çağrısı yapabilirsiniz
