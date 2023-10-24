@@ -1,58 +1,54 @@
-import React, { createContext, useReducer, Dispatch, useEffect } from 'react';
+import React, { createContext, useReducer, ReactNode } from 'react';
+import { IEvent } from '../interfaces/event';
 
-import { ReactNode } from 'react';
-
+// State interface
 interface State {
-  user: any;
+  events: IEvent[] | null;
 }
 
+// Action interface
 interface Action {
   type: string;
-  payload?: any;
+  payload: any; // veya daha spesifik bir tip
 }
 
-interface AuthContextProps {
+// Context için beklenen değer tipi
+export const EventContext = createContext<{
   state: State;
-  dispatch: Dispatch<Action>;
-}
+  dispatch: React.Dispatch<Action>;
+} | null>(null);
 
-const initialState: State = {
-  user: null,
-};
-
-export const AuthContext = createContext<AuthContextProps>({
-  state: initialState,
-  dispatch: () => null,
-});
-
-export const authReducer = (state: State, action: Action): State => {
+// Reducer fonksiyonu
+export const eventsReducer = (state: State, action: Action): State => {
   switch (action.type) {
-    case 'LOGIN':
-      return { ...state, user: action.payload };
-    case 'LOGOUT':
-      return { ...state, user: null };
+    case 'SET_EVENTS':
+      return {
+        ...state,
+        events: action.payload,
+      };
+    case 'CREATE_EVENT':
+      return {
+        ...state,
+        events: state.events ? [action.payload, ...state.events] : [action.payload],
+      };
+    case 'DELETE_EVENT':
+      return {
+        events: state.events && state.events.filter((e) => e._id !== action.payload._id),
+      };
     default:
       return state;
   }
 };
 
-interface AuthProviderProps {
+// EventContextProvider bileşeni
+interface Props {
   children: ReactNode;
 }
 
-export const AuthContextProvider: React.FC<AuthProviderProps> = ({ children }) => {
-  const [state, dispatch] = useReducer(authReducer, initialState);
+export const EventContextProvider: React.FC<Props> = ({ children }) => {
+  const [state, dispatch] = useReducer(eventsReducer, {
+    events: null,
+  });
 
-  useEffect(() => {
-    const storedData = localStorage.getItem('user');
-    const user = storedData ? JSON.parse(storedData) : null;
-
-    if (user) {
-      dispatch({ type: 'LOGIN', payload: user });
-    }
-  }, []);
-
-  console.log('AuthContext state: ', state);
-
-  return <AuthContext.Provider value={{ state, dispatch }}>{children}</AuthContext.Provider>;
+  return <EventContext.Provider value={{ state, dispatch }}>{children}</EventContext.Provider>;
 };
