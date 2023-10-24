@@ -1,51 +1,23 @@
-import React, { useState } from "react";
-import { Button, Form, Container, Row, Col } from "react-bootstrap";
+import { Button, TextField, Box } from '@mui/material';
+import './login.css';
+import Login from '/login.jpeg';
 
-function LoginForm() {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-
-  const handleSubmit = (event: any) => {
-    event.preventDefault();
-    // Burada giriş doğrulaması ve/veya API çağrısı yapabilirsiniz
-    console.log("Email:", email, "Password:", password);
-  };
-
+function LoginScreen() {
   return (
-    <Container>
-      <Row className="justify-content-md-center">
-        <Col xs={12} md={6}>
-          <Form onSubmit={handleSubmit}>
-            <Form.Group className="mb-3" controlId="formBasicEmail">
-              <Form.Label>Email adresi</Form.Label>
-              <Form.Control
-                type="email"
-                placeholder="Email girin"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                required
-              />
-            </Form.Group>
+    <Box className="form">
+      <img src={Login} />
 
-            <Form.Group className="mb-3" controlId="formBasicPassword">
-              <Form.Label>Şifre</Form.Label>
-              <Form.Control
-                type="password"
-                placeholder="Şifre"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                required
-              />
-            </Form.Group>
-
-            <Button variant="primary" type="submit">
-              Giriş Yap
-            </Button>
-          </Form>
-        </Col>
-      </Row>
-    </Container>
+      <div className="login-text">
+        <h1>LOGIN</h1>
+      </div>1
+      <TextField placeholder="Username..." variant="outlined" className="custom-textfield" />
+      <TextField placeholder="Password..." variant="outlined" className="custom-textfield" type="password" />
+      <div className="buttonContainer">
+        <Button className="custom-bg">Login</Button>
+        <Button className="custom-bg">Sign Up</Button>
+      </div>
+    </Box>
   );
 }
 
-export default LoginForm;
+export default LoginScreen;
