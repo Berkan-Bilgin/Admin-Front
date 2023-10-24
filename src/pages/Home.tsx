@@ -4,6 +4,7 @@ import EventCard from '../components/Event/EventCard';
 import { IEvent } from '../interfaces/event';
 import { useEventContext } from '../hooks/useEventContext';
 import { useAuthContext } from '../hooks/useAuthContext';
+import axios from 'axios';
 
 const Home = () => {
   const { state, dispatch } = useEventContext();
@@ -16,21 +17,18 @@ const Home = () => {
   useEffect(() => {
     const fetchEvents = async () => {
       try {
-        const response = await fetch('http://localhost:3000/api/event', {
-          // headers: {
-          //   Authorization: `Bearer ${user.token}`,
-          // },
-        });
-        const json = await response.json();
-        console.log('events', json);
+        const response = await axios.get('http://localhost:3000/api/event');
 
-        if (response.ok) {
-          dispatch({ type: 'SET_EVENTS', payload: json });
-        } else {
-          throw new Error('Network response was not ok.');
-        }
-      } catch (error) {
+        console.log(user);
+
+        console.log('events', response.data);
+        dispatch({ type: 'SET_EVENTS', payload: response.data });
+      } catch (error: any) {
         console.error('Fetching events failed: ', error);
+        if (error.response) {
+          // Sunucudan dönen hata mesajını yazdırabilirsiniz
+          console.error('Server Error: ', error.response.data);
+        }
       }
     };
     console.log(user);
