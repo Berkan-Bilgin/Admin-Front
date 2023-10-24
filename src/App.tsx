@@ -1,20 +1,28 @@
-import { useState } from 'react';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
-import LoginPage from './pages/LoginPage';
-import SignupPage from './pages/SignupPage';
-import Home from './pages/HomePage';
 
-function App() {
+import Home from './pages/Home';
+import Login from './pages/Login';
+import Signup from './pages/Signup';
+import Layout from './components/Layout';
+import { useAuthContext } from './hooks/useAuthContext';
+
+const App = () => {
+  const {
+    state: { user },
+  } = useAuthContext();
   return (
-    <BrowserRouter>
-      <Routes>
-        {/* <Route path="/" element={<Navigate to="/login" />}></Route> */}
-        <Route path="/" element={<Home />}></Route>
-        <Route path="/login" element={<LoginPage />}></Route>
-        <Route path="/signup" element={<SignupPage />}></Route>
-      </Routes>
-    </BrowserRouter>
+    <div>
+      <BrowserRouter>
+        <Layout>
+          <Routes>
+            <Route path="/" element={user ? <Home /> : <Navigate to="/login" />}></Route>
+            <Route path="/login" element={!user ? <Login /> : <Navigate to="/" />}></Route>
+            <Route path="/signup" element={!user ? <Signup /> : <Navigate to="/" />}></Route>
+          </Routes>
+        </Layout>
+      </BrowserRouter>
+    </div>
   );
-}
+};
 
 export default App;
