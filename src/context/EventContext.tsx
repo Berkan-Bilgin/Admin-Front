@@ -1,0 +1,58 @@
+import React, { createContext, useReducer, Dispatch, useEffect } from 'react';
+
+import { ReactNode } from 'react';
+
+interface State {
+  user: any;
+}
+
+interface Action {
+  type: string;
+  payload?: any;
+}
+
+interface AuthContextProps {
+  state: State;
+  dispatch: Dispatch<Action>;
+}
+
+const initialState: State = {
+  user: null,
+};
+
+export const AuthContext = createContext<AuthContextProps>({
+  state: initialState,
+  dispatch: () => null,
+});
+
+export const authReducer = (state: State, action: Action): State => {
+  switch (action.type) {
+    case 'LOGIN':
+      return { ...state, user: action.payload };
+    case 'LOGOUT':
+      return { ...state, user: null };
+    default:
+      return state;
+  }
+};
+
+interface AuthProviderProps {
+  children: ReactNode;
+}
+
+export const AuthContextProvider: React.FC<AuthProviderProps> = ({ children }) => {
+  const [state, dispatch] = useReducer(authReducer, initialState);
+
+  useEffect(() => {
+    const storedData = localStorage.getItem('user');
+    const user = storedData ? JSON.parse(storedData) : null;
+
+    if (user) {
+      dispatch({ type: 'LOGIN', payload: user });
+    }
+  }, []);
+
+  console.log('AuthContext state: ', state);
+
+  return <AuthContext.Provider value={{ state, dispatch }}>{children}</AuthContext.Provider>;
+};
