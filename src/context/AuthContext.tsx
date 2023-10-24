@@ -3,7 +3,6 @@ import React, { createContext, useReducer, Dispatch, useEffect } from 'react';
 
 import { ReactNode } from 'react';
 
-
 interface Action {
   type: string;
   payload?: any;
@@ -30,8 +29,10 @@ export const AuthContext = createContext<AuthContextProps>({
 export const authReducer = (state: IState, action: Action): IState => {
   switch (action.type) {
     case 'LOGIN':
-      return { 
-       ...state, user: axios.defaults.headers.common["Authorization"] = `Bareer${action.payload}` 
+      axios.defaults.headers.common['Authorization'] = `Bearer" ${action.payload.token}`;
+      return {
+        ...state,
+        user: action.payload,
       };
     case 'LOGOUT':
       return { ...state, user: null };
