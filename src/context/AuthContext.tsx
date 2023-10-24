@@ -1,10 +1,8 @@
+import axios from 'axios';
 import React, { createContext, useReducer, Dispatch, useEffect } from 'react';
 
 import { ReactNode } from 'react';
 
-interface State {
-  user: any;
-}
 
 interface Action {
   type: string;
@@ -12,11 +10,15 @@ interface Action {
 }
 
 interface AuthContextProps {
-  state: State;
+  state: IState;
   dispatch: Dispatch<Action>;
 }
 
-const initialState: State = {
+interface IState {
+  user: any;
+}
+
+const initialState: IState = {
   user: null,
 };
 
@@ -25,10 +27,12 @@ export const AuthContext = createContext<AuthContextProps>({
   dispatch: () => null,
 });
 
-export const authReducer = (state: State, action: Action): State => {
+export const authReducer = (state: IState, action: Action): IState => {
   switch (action.type) {
     case 'LOGIN':
-      return { ...state, user: action.payload };
+      return { 
+       ...state, user: axios.defaults.headers.common["Authorization"] = `Bareer${action.payload}` 
+      };
     case 'LOGOUT':
       return { ...state, user: null };
     default:

@@ -17,9 +17,9 @@ const Home = () => {
     const fetchEvents = async () => {
       try {
         const response = await fetch('http://localhost:3000/api/event', {
-          headers: {
-            Authorization: `Bearer ${user.token}`,
-          },
+          // headers: {
+          //   Authorization: `Bearer ${user.token}`,
+          // },
         });
         const json = await response.json();
         console.log('events', json);
