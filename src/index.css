@@ -1,0 +1,110 @@
+/* login styles*/
+.login-form {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  min-height: 100vh;
+  text-align: center;
+  background-color: #cff4d2;
+}
+.login-form_title {
+  padding-bottom: 10px;
+}
+.login-form_password,
+.login-form_email {
+  background-color: white;
+}
+.login-form .MuiFormControl-root {
+  margin-bottom: 8px;
+}
+.login-form .MuiButton-root {
+  margin-top: 10px;
+}
+
+@media (max-width: 768px) {
+  .login-form {
+    padding: 10px;
+  }
+
+  .login-form .MuiFormControl-root,
+  .login-form .MuiButton-root {
+    margin-top: 15px;
+  }
+}
+
+@media (max-width: 480px) {
+  .login-form {
+    padding: 5px;
+  }
+
+  .login-form .MuiFormControl-root,
+  .login-form .MuiButton-root {
+    margin-top: 15px;
+  }
+}
+
+@media (min-width: 770px) {
+  .login-form {
+    padding: 25px;
+  }
+
+  .login-form .MuiFormControl-root,
+  .login-form .MuiButton-root {
+    margin-top: 20px;
+  }
+}
+
+/* Signup Styles */
+.signup-form {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  min-height: 100vh;
+  text-align: center;
+  background-color: #cff4d2;
+}
+.signup-form_title {
+  padding-bottom: 10px;
+}
+.signup-form_password,
+.signup-form_email {
+  background-color: white;
+}
+.signup-form .MuiFormControl-root {
+  margin-top: 8px;
+}
+.signup-form .MuiButton-root {
+  margin-top: 10px;
+}
+
+@media (max-width: 768px) {
+  .signup-form {
+    padding: 10px;
+  }
+  .signup-form .MuiFormControl-root,
+  .signup-form .MuiButton-root {
+    margin-top: 15px;
+  }
+}
+
+@media (max-width: 480px) {
+  .signup-form {
+    padding: 5px;
+  }
+  .signup-form .MuiFormControl-root,
+  .signup-form .MuiButton-root {
+    margin-top: 15px;
+  }
+}
+
+@media (min-width: 770px) {
+  .signup-form {
+    padding: 25px;
+  }
+  .signup-form .MuiFormControl-root,
+  .signup-form .MuiButton-root {
+    margin-top: 20px;
+  }
+}
