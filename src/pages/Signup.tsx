@@ -1,32 +1,37 @@
-import { useState } from 'react';
-import { useSignup } from '../hooks/useSignup';
-import { Button, Typography, Container, TextField } from '@mui/material';
+import { Formik, Field, Form, ErrorMessage } from 'formik';
+import * as Yup from 'yup';
+import { Button, TextField, Typography, Container } from '@mui/material';
 
 const Signup = () => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const { signup, error, isLoading } = useSignup();
+  const validationSchema = Yup.object().shape({
+    email: Yup.string().max(50, 'E-mail address must be at most 50 characters').email('Please enter a valid e-mail address').required('E-mail is required'),
+    password: Yup.string().min(10, 'Password must be at least 10 characters').required('Password is required'),
+  });
 
-  const handleSubmit = async (e: any) => {
-    e.preventDefault();
-    await signup(email, password);
-    console.log(email, password);
+  const handleSubmit = (values: any, { setSubmitting }: any) => {
+    console.log(values.email, values.password);
+    setSubmitting(false);
   };
 
   return (
     <div className="signup-form">
       <Container maxWidth="xs">
-        <form onSubmit={handleSubmit}>
-          <Typography variant="h5" className="signup-form_title">
-            Sign Up
-          </Typography>
-          <TextField className="signup-form_email" label="Email" variant="outlined" fullWidth onChange={(e) => setEmail(e.target.value)} value={email} />
-          <TextField className="signup-form_password" label="Password" variant="outlined" fullWidth onChange={(e) => setPassword(e.target.value)} value={password} />
-          <Button className="signup-form_submit" variant="contained" color="primary" fullWidth disabled={isLoading} type="submit">
-            Sign Up
-          </Button>
-          {error && <div>{error}</div>}
-        </form>
+        <Formik initialValues={{ email: '', password: '' }} validationSchema={validationSchema} onSubmit={handleSubmit}>
+          <Form>
+            <Typography variant="h5" className="signup-form_title">
+              Sign Up
+            </Typography>
+            <Field as={TextField} className="signup-form_email" label="Email" variant="outlined" fullWidth name="email" />
+            <ErrorMessage name="email" component="div" className="signup-mail-error" />
+
+            <Field as={TextField} className="signup-form_password" type="password" label="Password" variant="outlined" fullWidth name="password" />
+            <ErrorMessage name="password" component="div" className="signup-password-error" />
+            
+            <Button className="signup-form_submit" variant="contained" color="primary" fullWidth type="submit">
+              Sign Up
+            </Button>
+          </Form>
+        </Formik>
       </Container>
     </div>
   );

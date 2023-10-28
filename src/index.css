@@ -54,6 +54,9 @@
     margin-top: 20px;
   }
 }
+.login-mail-error, .login-password-error{
+  color: red;
+}
 
 /* Signup Styles */
 .signup-form {
@@ -107,4 +110,8 @@
   .signup-form .MuiButton-root {
     margin-top: 20px;
   }
+}
+
+.signup-mail-error , .signup-password-error{
+  color: red;
 }
