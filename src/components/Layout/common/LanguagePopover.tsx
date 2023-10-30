@@ -6,7 +6,7 @@ import ReactCountryFlag from 'react-country-flag';
 const LanguagePopover = () => {
   const [languageAnchorEl, setLanguageAnchorEl] = useState(null);
 
-  const handleLanguagePopoverOpen = (event) => {
+  const handleLanguagePopoverOpen = (event: any) => {
     setLanguageAnchorEl(event.currentTarget);
   };
 
@@ -14,7 +14,7 @@ const LanguagePopover = () => {
     setLanguageAnchorEl(null);
   };
 
-  const changeLanguage = (lang) => {
+  const changeLanguage = (lang: any) => {
     console.log(`Dil ${lang} olarak değiştirildi.`);
     handleLanguagePopoverClose();
   };
