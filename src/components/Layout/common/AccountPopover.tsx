@@ -1,11 +1,22 @@
 import React, { useState } from 'react';
 import { IconButton, Menu, MenuItem, Avatar } from '@mui/material';
 
-const AccountPopover = ({ user, onLogout }) => {
+interface User {
+  token: string;
+  email: string;
+}
+
+interface AccountPopoverProps {
+  user: User;
+  onLogout: () => void;
+}
+
+const AccountPopover: React.FC<AccountPopoverProps> = ({ user, onLogout }) => {
   const [anchorEl, setAnchorEl] = useState(null);
 
-  const handleMenuOpen = (event) => {
+  const handleMenuOpen = (event: any) => {
     setAnchorEl(event.currentTarget);
+    console.log('user ne', user);
   };
 
   const handleMenuClose = () => {
