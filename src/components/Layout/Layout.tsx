@@ -42,7 +42,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
           )}
 
           <Typography style={{ flexGrow: 1, marginLeft: drawerOpen ? drawerWidth : 0 }} variant="h6">
-            Admin Panel
+            Eventoria
           </Typography>
 
           {user ? (
