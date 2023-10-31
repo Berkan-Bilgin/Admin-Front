@@ -40,10 +40,6 @@ const Home = () => {
 
   return (
     <div>
-      {user ? <h1>{user.email}</h1> : <h1>kullanıcı yok</h1>}
-
-      <EventForm></EventForm>
-
       <div>{events && events.map((event: IEvent) => <EventCard key={event._id} event={event}></EventCard>)}</div>
     </div>
   );

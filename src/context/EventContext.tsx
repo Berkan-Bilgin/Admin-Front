@@ -33,7 +33,13 @@ export const eventsReducer = (state: State, action: Action): State => {
       };
     case 'DELETE_EVENT':
       return {
+        ...state,
         events: state.events && state.events.filter((e) => e._id !== action.payload._id),
+      };
+    case 'UPDATE_EVENT':
+      return {
+        ...state,
+        events: state.events && state.events.map((event) => (event._id === action.payload._id ? action.payload : event)),
       };
     default:
       return state;
