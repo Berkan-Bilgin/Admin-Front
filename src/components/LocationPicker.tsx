@@ -66,13 +66,13 @@ const LocationPicker: React.FC<LocationPickerProps> = ({ onLocationSelected }) =
           {selectedPosition && <Marker position={selectedPosition} />}
         </GoogleMap>
       </LoadScript>
-      {selectedPosition ? (
+      {/* {selectedPosition ? (
         <h1>
           Position: Latitude: {selectedPosition.lat}, Longitude: {selectedPosition.lng}
         </h1>
       ) : (
         <h1>No position selected</h1>
-      )}
+      )} */}
     </>
   );
 };
