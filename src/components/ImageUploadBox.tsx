@@ -15,6 +15,10 @@ const ImageUploadBox: React.FC<ImageUploadProps> = ({ onImagesUpload }) => {
       reader.readAsDataURL(file);
     });
 
+  const handleImageRemove = (indexToRemove: number) => {
+    setImages((prevImages) => prevImages.filter((_, index) => index !== indexToRemove));
+  };
+
   const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const files = e.target.files;
     const base64Images: string[] = [];
@@ -26,8 +30,23 @@ const ImageUploadBox: React.FC<ImageUploadProps> = ({ onImagesUpload }) => {
       }
     }
 
-    setImages(base64Images);
-    onImagesUpload(base64Images); // Resimler yüklendiğinde üst bileşene bildir
+    setImages((prevImages) => [...prevImages, ...base64Images]);
+    onImagesUpload(base64Images);
+  };
+
+  const handleDrop = async (e: React.DragEvent<HTMLDivElement>) => {
+    e.preventDefault();
+
+    const files = e.dataTransfer.files;
+    const base64Images: string[] = [];
+
+    for (let i = 0; i < files.length; i++) {
+      const base64 = await convertToBase64(files[i]);
+      base64Images.push(base64);
+    }
+
+    setImages((prevImages) => [...prevImages, ...base64Images]);
+    onImagesUpload(base64Images);
   };
 
   return (
@@ -37,9 +56,29 @@ const ImageUploadBox: React.FC<ImageUploadProps> = ({ onImagesUpload }) => {
         <input type="file" multiple onChange={handleFileChange} />
       </label>
 
+      <div style={{ border: '2px dashed gray', padding: '20px', marginTop: '10px', textAlign: 'center' }} onDragOver={(e) => e.preventDefault()} onDrop={handleDrop}>
+        Drag & Drop Images Here
+      </div>
+
       <div>
         {images.map((image, index) => (
-          <img key={index} src={image} alt={`event-thumbnail-${index}`} style={{ width: '100px' }} />
+          <div key={index} style={{ position: 'relative', display: 'inline-block', margin: '5px' }}>
+            <img src={image} alt={`event-thumbnail-${index}`} style={{ width: '100px' }} />
+            <span
+              style={{
+                position: 'absolute',
+                top: 0,
+                right: 0,
+                backgroundColor: 'white',
+                color: 'black',
+                cursor: 'pointer',
+                padding: '1px 3px',
+              }}
+              onClick={() => handleImageRemove(index)}
+            >
+              ×
+            </span>
+          </div>
         ))}
       </div>
     </div>
