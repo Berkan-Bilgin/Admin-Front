@@ -1,32 +1,56 @@
-import React from 'react';
-import { Box, IconButton } from '@mui/material';
+import React, { useState } from 'react';
+import { Box, IconButton, Button } from '@mui/material';
 import { DataGrid, GridColDef, GridRenderCellParams, GridToolbar } from '@mui/x-data-grid';
 import { useEventContext } from '../../hooks/useEventContext';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/DeleteOutlined';
-import axios from 'axios';
+import AddIcon from '@mui/icons-material/Add';
+import { deleteEvent } from '../../services/eventService';
+import { useMutation } from 'react-query';
+import EditEventModal from './EditEventModal';
+import AddEventModal from './AddEventModal';
+import { IEvent } from '../../interfaces/event';
 
 const EventTable = () => {
   const { state, dispatch } = useEventContext();
   const { events } = state;
 
-  const handleEditClick = (id: string) => {
-    console.log('Editing:', id);
+  const [isEditModalOpen, setIsEditModalOpen] = useState(false);
+  const [isAddModalOpen, setIsAddModalOpen] = useState(false);
+  const [editingEvent, setEditingEvent] = useState<IEvent | null>(null);
+
+  const handleEditClick = (event: IEvent) => {
+    console.log('Editing:', event._id);
+    setEditingEvent(event); // Düzenlenen etkinliğin ID'sini kaydedin.
+    setIsEditModalOpen(true); // Modal'ı açın.
   };
 
-  const handleDeleteClick = async (id: string) => {
-    try {
-      const response = await axios.delete(`http://localhost:3000/api/event/${id}`);
+  const handleCloseModal = () => {
+    setEditingEvent(null); // Düzenlenen etkinliğin ID'sini temizleyin.
+    setIsEditModalOpen(false); // Modal'ı kapatın.
+  };
 
-      if (response.status === 200) {
-        dispatch({ type: 'DELETE_EVENT', payload: { _id: id } });
-        console.log(`Event with ID: ${id} deleted successfully.`);
-      } else {
-        console.error('Failed to delete event.');
-      }
-    } catch (error) {
+  const handleOpenAddModal = () => {
+    setIsAddModalOpen(true);
+  };
+
+  const handleCloseAddModal = () => {
+    setIsAddModalOpen(false);
+  };
+
+  const deleteEventMutation = useMutation(deleteEvent, {
+    onSuccess: (data, variables) => {
+      const id = variables as string;
+      dispatch({ type: 'DELETE_EVENT', payload: { _id: id } });
+      console.log(`Event with ID: ${id} deleted successfully.`);
+    },
+    onError: (error: any) => {
       console.error('Error while deleting event:', error);
-    }
+    },
+  });
+
+  const handleDeleteClick = (id: string) => {
+    deleteEventMutation.mutate(id);
   };
 
   const columns: GridColDef[] = [
@@ -48,7 +72,7 @@ const EventTable = () => {
       width: 150,
       renderCell: (params: GridRenderCellParams) => (
         <>
-          <IconButton aria-label="edit" color="primary" onClick={() => handleEditClick(params.row._id)}>
+          <IconButton aria-label="edit" color="primary" onClick={() => handleEditClick(params.row)}>
             <EditIcon />
           </IconButton>
           <IconButton aria-label="delete" color="error" onClick={() => handleDeleteClick(params.row._id)}>
@@ -61,7 +85,21 @@ const EventTable = () => {
 
   return (
     <Box>
-      <Box mx="20px" mt="40px">
+      <Box mx="20px" mt="60px" display="flex" justifyContent="flex-end">
+        <Button
+          startIcon={<AddIcon />}
+          variant="contained"
+          color="primary"
+          onClick={() => {
+            handleOpenAddModal();
+
+            console.log('Add New Event');
+          }}
+        >
+          Add Event
+        </Button>
+      </Box>
+      <Box mx="20px" mt="20px">
         <DataGrid
           slots={{
             toolbar: GridToolbar,
@@ -71,6 +109,8 @@ const EventTable = () => {
           getRowId={(row) => row._id}
         />
       </Box>
+      {isEditModalOpen && <EditEventModal event={editingEvent} onClose={handleCloseModal} />}
+      {isAddModalOpen && <AddEventModal onClose={handleCloseAddModal} />}
     </Box>
   );
 };
