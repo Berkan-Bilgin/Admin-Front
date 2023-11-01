@@ -17,6 +17,7 @@ import ImageUploadBox from '../../ImageUploadBox';
 import { useMutation } from 'react-query';
 import { useEventContext } from '../../../hooks/useEventContext';
 import { createEvent } from '../../../services/eventService';
+import { useSnackbar } from 'notistack';
 
 interface AddEventModalProps {
   onClose: () => void;
@@ -54,6 +55,8 @@ const AddEventModal: React.FC<AddEventModalProps> = ({ onClose }) => {
     eventImages: [],
   });
 
+  const { enqueueSnackbar } = useSnackbar();
+
   const [tabValue, setTabValue] = useState(0);
 
   const handleImagesUpload = (images: string[]) => {
@@ -82,6 +85,10 @@ const AddEventModal: React.FC<AddEventModalProps> = ({ onClose }) => {
       // Başarılı olduğunda yapılacaklar...
       console.log('Event created successfully:', data);
       onClose(); // Etkinlik başarıyla oluşturulduğunda modalı kapat
+      enqueueSnackbar('Event Created successfully', {
+        variant: 'success',
+        autoHideDuration: 3000,
+      });
 
       dispatch({ type: 'CREATE_EVENT', payload: data });
     },
