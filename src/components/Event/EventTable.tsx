@@ -10,6 +10,7 @@ import { useMutation } from 'react-query';
 import EditEventModal from './EditEventModal';
 import AddEventModal from './AddEventModal';
 import { IEvent } from '../../interfaces/event';
+import { useSnackbar } from 'notistack';
 
 const EventTable = () => {
   const { state, dispatch } = useEventContext();
@@ -18,6 +19,7 @@ const EventTable = () => {
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const [isAddModalOpen, setIsAddModalOpen] = useState(false);
   const [editingEvent, setEditingEvent] = useState<IEvent | null>(null);
+  const { enqueueSnackbar } = useSnackbar();
 
   const handleEditClick = (event: IEvent) => {
     console.log('Editing:', event._id);
@@ -41,6 +43,10 @@ const EventTable = () => {
   const deleteEventMutation = useMutation(deleteEvent, {
     onSuccess: (data, variables) => {
       const id = variables as string;
+      enqueueSnackbar('Event Deleted successfully', {
+        variant: 'error',
+        autoHideDuration: 3000,
+      });
       dispatch({ type: 'DELETE_EVENT', payload: { _id: id } });
       console.log(`Event with ID: ${id} deleted successfully.`);
     },

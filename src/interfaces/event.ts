@@ -5,13 +5,13 @@ export interface IEvent {
   description: string;
   location: string;
   city: string;
-  startDate: Date;
-  endDate: Date;
+  startDate: Date | null;
+  endDate: Date | null;
   coords: {
     lat: number;
     lng: number;
   };
   googleMapsLink: string;
   ticketPrice: string;
-  eventImages: never[];
+  eventImages: any[];
 }

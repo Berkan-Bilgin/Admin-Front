@@ -8,6 +8,7 @@ import { IEvent } from '../../interfaces/event';
 import { useMutation } from 'react-query';
 import { updateEvent } from '../../services/eventService';
 import { useEventContext } from '../../hooks/useEventContext';
+import { useSnackbar } from 'notistack';
 
 interface EditEventModalProps {
   event: IEvent | null;
@@ -21,6 +22,7 @@ const EditEventModal: React.FC<EditEventModalProps> = ({ event, onClose }) => {
 
   const { state, dispatch } = useEventContext();
   const { events } = state;
+  const { enqueueSnackbar } = useSnackbar();
 
   const [updatedEvent, setUpdatedEvent] = useState<IEvent>(event);
 
@@ -32,6 +34,10 @@ const EditEventModal: React.FC<EditEventModalProps> = ({ event, onClose }) => {
   const updateEventMutation = useMutation((data: { id: string; eventData: IEvent }) => updateEvent(data.id, data.eventData), {
     onSuccess: (updatedEventData) => {
       console.log('Event updated successfully.');
+      enqueueSnackbar('Event updated successfully', {
+        variant: 'success',
+        autoHideDuration: 3000,
+      });
       dispatch({ type: 'UPDATE_EVENT', payload: updatedEventData });
     },
     onError: (error: any) => {
