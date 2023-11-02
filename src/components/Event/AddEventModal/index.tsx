@@ -18,6 +18,9 @@ import { useMutation } from 'react-query';
 import { useEventContext } from '../../../hooks/useEventContext';
 import { createEvent } from '../../../services/eventService';
 import { useSnackbar } from 'notistack';
+import SingleDatePicker from './SingleDatePicker';
+import { Grid } from '@mui/material';
+import { IEvent } from '../../../interfaces/event';
 
 interface AddEventModalProps {
   onClose: () => void;
@@ -26,7 +29,7 @@ interface AddEventModalProps {
 interface TabPanelProps {
   value: number;
   index: number;
-  children: React.ReactNode; // Bu satırı ekledik
+  children: React.ReactNode;
 }
 
 const TabPanel: React.FC<TabPanelProps> = ({ children, value, index }) => {
@@ -38,14 +41,14 @@ const TabPanel: React.FC<TabPanelProps> = ({ children, value, index }) => {
 };
 
 const AddEventModal: React.FC<AddEventModalProps> = ({ onClose }) => {
-  const [newEvent, setNewEvent] = useState({
+  const [newEvent, setNewEvent] = useState<IEvent>({
     title: '',
     category: '',
     description: '',
     location: '',
     city: '',
-    startDate: new Date(),
-    endDate: new Date(),
+    startDate: null,
+    endDate: null,
     coords: {
       lat: 0,
       lng: 0,
@@ -143,6 +146,14 @@ const AddEventModal: React.FC<AddEventModalProps> = ({ onClose }) => {
               </Select>
             </FormControl>
             <TextField fullWidth margin="normal" id="eventDescription" label="Event Description" name="description" value={newEvent.description} onChange={handleChange} />
+            <Grid container spacing={2} sx={{ pt: 2, justifyContent: 'space-between' }}>
+              <Grid item xs={12} md={6}>
+                <SingleDatePicker label="Start Date" date={newEvent.startDate} onDateChange={(date) => setNewEvent((prev) => ({ ...prev, startDate: date }))} />
+              </Grid>
+              <Grid item xs={12} md={6}>
+                <SingleDatePicker label="End Date" date={newEvent.endDate} onDateChange={(date) => setNewEvent((prev) => ({ ...prev, endDate: date }))} />
+              </Grid>
+            </Grid>
           </TabPanel>
 
           <TabPanel value={tabValue} index={1}>
