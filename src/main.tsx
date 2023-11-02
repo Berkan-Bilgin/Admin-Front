@@ -9,20 +9,24 @@ import theme from './theme';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import { CssBaseline } from '@mui/material';
 import { SnackbarProvider } from 'notistack';
+import { LocalizationProvider } from '@mui/x-date-pickers';
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 
 const queryClient = new QueryClient();
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <QueryClientProvider client={queryClient}>
     <ThemeProvider theme={theme}>
-      <CssBaseline />
-      <SnackbarProvider>
-        <AuthContextProvider>
-          <EventContextProvider>
-            <App />
-          </EventContextProvider>
-        </AuthContextProvider>
-      </SnackbarProvider>
+      <LocalizationProvider dateAdapter={AdapterDayjs}>
+        <CssBaseline />
+        <SnackbarProvider>
+          <AuthContextProvider>
+            <EventContextProvider>
+              <App />
+            </EventContextProvider>
+          </AuthContextProvider>
+        </SnackbarProvider>
+      </LocalizationProvider>
     </ThemeProvider>
   </QueryClientProvider>,
 );
