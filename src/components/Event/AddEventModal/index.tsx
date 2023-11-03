@@ -35,7 +35,7 @@ interface TabPanelProps {
 const TabPanel: React.FC<TabPanelProps> = ({ children, value, index }) => {
   return (
     <Typography component="div" role="tabpanel" hidden={value !== index}>
-      {value === index && <Box>{children}</Box>}
+      {value === index && <Box sx={{ height: '600px' }}>{children}</Box>}
     </Typography>
   );
 };
@@ -133,7 +133,7 @@ const AddEventModal: React.FC<AddEventModalProps> = ({ onClose }) => {
             <Tab label="Etkinlik Ücreti" />
           </Tabs>
 
-          <TabPanel value={tabValue} index={0}>
+          <TabPanel style={{ height: '500px' }} value={tabValue} index={0}>
             <TextField fullWidth margin="normal" id="eventName" label="Event Name" name="title" value={newEvent.title} onChange={handleChange} />
             <FormControl fullWidth margin="normal">
               <InputLabel htmlFor="eventCategory">Event Category</InputLabel>
