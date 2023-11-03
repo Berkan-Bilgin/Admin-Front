@@ -14,8 +14,6 @@ interface LayoutProps {
   children: React.ReactNode;
 }
 
-const drawerWidth = 240;
-
 const Layout: React.FC<LayoutProps> = ({ children }) => {
   const [drawerOpen, setDrawerOpen] = useState(false);
   const {
@@ -25,6 +23,8 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
   const handleClick = () => {
     logout();
   };
+
+  const drawerWidth = user ? 240 : 0;
 
   const toggleDrawer = () => {
     setDrawerOpen(!drawerOpen);
