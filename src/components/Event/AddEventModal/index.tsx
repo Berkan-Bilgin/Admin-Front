@@ -6,7 +6,6 @@ import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
-import Typography from '@mui/material/Typography';
 import InputLabel from '@mui/material/InputLabel';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
@@ -14,31 +13,15 @@ import MenuItem from '@mui/material/MenuItem';
 import { categories } from '../../../mock/selectCategories';
 import LocationPicker from '../../LocationPicker';
 import ImageUploadBox from '../../ImageUploadBox';
-import { useMutation } from 'react-query';
-import { useEventContext } from '../../../hooks/useEventContext';
-import { createEvent } from '../../../services/eventService';
-import { useSnackbar } from 'notistack';
 import SingleDatePicker from './SingleDatePicker';
 import { Grid } from '@mui/material';
 import { IEvent } from '../../../interfaces/event';
+import TabPanel from '../../TabPanel';
+import useCreateEvent from '../../../hooks/useCreateEvent';
 
 interface AddEventModalProps {
   onClose: () => void;
 }
-
-interface TabPanelProps {
-  value: number;
-  index: number;
-  children: React.ReactNode;
-}
-
-const TabPanel: React.FC<TabPanelProps> = ({ children, value, index }) => {
-  return (
-    <Typography component="div" role="tabpanel" hidden={value !== index}>
-      {value === index && <Box>{children}</Box>}
-    </Typography>
-  );
-};
 
 const AddEventModal: React.FC<AddEventModalProps> = ({ onClose }) => {
   const [newEvent, setNewEvent] = useState<IEvent>({
@@ -57,8 +40,6 @@ const AddEventModal: React.FC<AddEventModalProps> = ({ onClose }) => {
     ticketPrice: '',
     eventImages: [],
   });
-
-  const { enqueueSnackbar } = useSnackbar();
 
   const [tabValue, setTabValue] = useState(0);
 
@@ -81,24 +62,7 @@ const AddEventModal: React.FC<AddEventModalProps> = ({ onClose }) => {
     setTabValue(newValue);
   };
 
-  const { dispatch } = useEventContext();
-
-  const addEventMutation = useMutation(createEvent, {
-    onSuccess: (data) => {
-      // Başarılı olduğunda yapılacaklar...
-      console.log('Event created successfully:', data);
-      onClose(); // Etkinlik başarıyla oluşturulduğunda modalı kapat
-      enqueueSnackbar('Event Created successfully', {
-        variant: 'success',
-        autoHideDuration: 3000,
-      });
-
-      dispatch({ type: 'CREATE_EVENT', payload: data });
-    },
-    onError: (error) => {
-      console.error('Error creating the event:', error);
-    },
-  });
+  const addEventMutation = useCreateEvent(onClose);
 
   const handleSubmit = () => {
     console.log(newEvent);
@@ -133,7 +97,7 @@ const AddEventModal: React.FC<AddEventModalProps> = ({ onClose }) => {
             <Tab label="Etkinlik Ücreti" />
           </Tabs>
 
-          <TabPanel value={tabValue} index={0}>
+          <TabPanel style={{ height: '500px' }} value={tabValue} index={0}>
             <TextField fullWidth margin="normal" id="eventName" label="Event Name" name="title" value={newEvent.title} onChange={handleChange} />
             <FormControl fullWidth margin="normal">
               <InputLabel htmlFor="eventCategory">Event Category</InputLabel>
