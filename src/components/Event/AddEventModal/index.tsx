@@ -28,7 +28,7 @@ const AddEventModal: React.FC<AddEventModalProps> = ({ onClose }) => {
     title: '',
     category: '',
     description: '',
-    location: '',
+    place: '',
     city: '',
     startDate: null,
     endDate: null,
@@ -83,11 +83,11 @@ const AddEventModal: React.FC<AddEventModalProps> = ({ onClose }) => {
             left: '50%',
             transform: 'translate(-50%, -50%)',
             width: 800,
+            height: 700,
             bgcolor: 'background.paper',
             boxShadow: 24,
             p: 4,
             outline: 'none',
-            minHeight: '400px',
           }}
         >
           <Tabs value={tabValue} onChange={handleTabChange}>
@@ -97,7 +97,7 @@ const AddEventModal: React.FC<AddEventModalProps> = ({ onClose }) => {
             <Tab label="Etkinlik Ücreti" />
           </Tabs>
 
-          <TabPanel style={{ height: '500px' }} value={tabValue} index={0}>
+          <TabPanel value={tabValue} index={0}>
             <TextField fullWidth margin="normal" id="eventName" label="Event Name" name="title" value={newEvent.title} onChange={handleChange} />
             <FormControl fullWidth margin="normal">
               <InputLabel htmlFor="eventCategory">Event Category</InputLabel>
@@ -121,10 +121,7 @@ const AddEventModal: React.FC<AddEventModalProps> = ({ onClose }) => {
           </TabPanel>
 
           <TabPanel value={tabValue} index={1}>
-            <TextField fullWidth margin="normal" id="eventLocation" label="Event Location" name="location" value={newEvent.location} onChange={handleChange} />
-
-            <TextField fullWidth margin="normal" id="googleMapsLink" label="Google Maps Link" name="googleMapsLink" value={newEvent.googleMapsLink} onChange={handleChange} />
-
+            <TextField fullWidth margin="normal" id="eventPlace" label="Event Place" name="place" value={newEvent.place} onChange={handleChange} />
             <LocationPicker onLocationSelected={handleLocationSelected} />
           </TabPanel>
 
