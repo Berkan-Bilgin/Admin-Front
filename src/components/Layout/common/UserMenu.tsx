@@ -8,10 +8,10 @@ const UserMenu = ({ drawerOpen, toggleDrawer }) => {
     padding: '12px 24px',
     borderRadius: '8px',
     marginBottom: '8px',
-    backgroundColor: '#3a4a64', // Hafif koyu bir arka plan rengi
+    backgroundColor: '#ccc', // Hafif koyu bir arka plan rengi
     transition: 'all 0.3s ease-in-out',
     '&:hover': {
-      backgroundColor: '#2c3e50', // Hover durumunda daha koyu bir renk
+      backgroundColor: '#dfe6e9', // Hover durumunda daha koyu bir renk
       transform: 'scale(1.05)', // Hafif bir büyütme efekti
       boxShadow: '0px 4px 15px rgba(0, 0, 0, 0.1)', // Hafif bir gölge efekti
     },
@@ -34,7 +34,7 @@ const UserMenu = ({ drawerOpen, toggleDrawer }) => {
         PaperProps={{
           style: {
             width: 240,
-            backgroundColor: '#2c3e50',
+            backgroundColor: '#f1f1f1',
             color: '#ecf0f1',
           },
         }}
@@ -44,7 +44,7 @@ const UserMenu = ({ drawerOpen, toggleDrawer }) => {
             <ChevronLeftIcon fontSize="large" />
           </IconButton>
         </div>
-        <Divider style={{ backgroundColor: '#34495e' }} />
+        <Divider style={{ backgroundColor: '#f1f1f1' }} />
         <List sx={{ padding: '16px' }}>
           {[
             { label: 'Dashboard', path: '/' },
