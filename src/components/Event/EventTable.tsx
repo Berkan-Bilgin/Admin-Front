@@ -71,8 +71,8 @@ const EventTable = () => {
     },
     { field: 'title', headerName: 'Title', width: 150 },
     { field: 'category', headerName: 'Category', width: 150 },
-    { field: 'description', headerName: 'Description', width: 450 },
-    { field: 'location', headerName: 'Location', width: 150 },
+    { field: 'description', headerName: 'Description', width: 300 },
+    { field: 'place', headerName: 'Place', width: 150 },
     { field: 'ticketPrice', headerName: 'Ticket Price', width: 150 },
     { field: 'startDate', headerName: 'Start Date', width: 200 },
 
