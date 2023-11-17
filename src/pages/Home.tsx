@@ -1,14 +1,12 @@
-import React, { useEffect, useState } from 'react';
-import EventForm from '../components/Event/EventForm';
-import EventCard from '../components/Event/EventCard';
-import { IEvent } from '../interfaces/event';
+import { useEffect } from 'react';
+
 import { useEventContext } from '../hooks/useEventContext';
 import { useAuthContext } from '../hooks/useAuthContext';
 import axios from 'axios';
+import EventTable from '../components/Event/EventTable';
 
 const Home = () => {
-  const { state, dispatch } = useEventContext();
-  const { events } = state;
+  const { dispatch } = useEventContext();
 
   const {
     state: { user },
@@ -26,7 +24,6 @@ const Home = () => {
       } catch (error: any) {
         console.error('Fetching events failed: ', error);
         if (error.response) {
-          // Sunucudan dönen hata mesajını yazdırabilirsiniz
           console.error('Server Error: ', error.response.data);
         }
       }
@@ -40,7 +37,7 @@ const Home = () => {
 
   return (
     <div>
-      <div>{events && events.map((event: IEvent) => <EventCard key={event._id} event={event}></EventCard>)}</div>
+      <EventTable />
     </div>
   );
 };
