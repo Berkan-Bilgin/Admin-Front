@@ -2,6 +2,7 @@ import { Formik, Field, Form, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import { Button, TextField, Typography, Container } from '@mui/material';
 import { useLogin } from '../hooks/useLogin';
+import { Link } from 'react-router-dom';
 
 const Login = () => {
   const validationSchema = Yup.object().shape({
@@ -34,6 +35,19 @@ const Login = () => {
             <Button className="login-form_submit" variant="contained" color="primary" fullWidth type="submit">
               Log in
             </Button>
+
+            <Typography variant="body2" className="login-form_forgot-password">
+              <Link className="link-style" to="/forgot-password">
+                Forgotten password?
+              </Link>
+            </Typography>
+
+            <Typography variant="body2" className="login-form_signup-link">
+              Don't have an account?{' '}
+              <Link className="link-style" to="/signup">
+                Sign up
+              </Link>
+            </Typography>
           </Form>
         </Formik>
       </Container>
