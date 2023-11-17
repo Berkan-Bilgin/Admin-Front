@@ -24,7 +24,7 @@ const LocationPicker: React.FC<LocationPickerProps> = ({ onLocationSelected }) =
   const mapRef = useRef<google.maps.Map | null>(null);
 
   const mapStyles = {
-    height: '50vh',
+    height: '300px',
     width: '100%',
   };
 
