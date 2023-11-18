@@ -83,61 +83,63 @@ const AddEventModal: React.FC<AddEventModalProps> = ({ onClose }) => {
             left: '50%',
             transform: 'translate(-50%, -50%)',
             width: 800,
-            height: 700,
+            height: 600,
             bgcolor: 'background.paper',
             boxShadow: 24,
             p: 4,
             outline: 'none',
           }}
         >
-          <Tabs value={tabValue} onChange={handleTabChange}>
-            <Tab label="Event Informations" />
-            <Tab label="Yer ve Fiyat Bilgisi" />
-            <Tab label="Etkinlik Resimleri" />
-            <Tab label="Etkinlik Ücreti" />
-          </Tabs>
+          <Box sx={{ height: 450 }}>
+            <Tabs value={tabValue} onChange={handleTabChange}>
+              <Tab label="Event Informations" />
+              <Tab label="Yer ve Fiyat Bilgisi" />
+              <Tab label="Etkinlik Resimleri" />
+              <Tab label="Etkinlik Ücreti" />
+            </Tabs>
 
-          <TabPanel value={tabValue} index={0}>
-            <TextField fullWidth margin="normal" id="eventName" label="Event Name" name="title" value={newEvent.title} onChange={handleChange} />
-            <FormControl fullWidth margin="normal">
-              <InputLabel htmlFor="eventCategory">Event Category</InputLabel>
-              <Select label="eventCategory" id="eventCategory" name="category" value={newEvent.category} onChange={handleSelectChange}>
-                {categories.map((category) => (
-                  <MenuItem key={category.value} value={category.value}>
-                    {category.label}
-                  </MenuItem>
-                ))}
-              </Select>
-            </FormControl>
-            <TextField fullWidth margin="normal" id="eventDescription" label="Event Description" name="description" value={newEvent.description} onChange={handleChange} />
-            <Grid container spacing={2} sx={{ pt: 2, justifyContent: 'space-between' }}>
-              <Grid item xs={12} md={6}>
-                <SingleDatePicker label="Start Date" date={newEvent.startDate} onDateChange={(date) => setNewEvent((prev) => ({ ...prev, startDate: date }))} />
+            <TabPanel value={tabValue} index={0}>
+              <TextField fullWidth margin="normal" id="eventName" label="Event Name" name="title" value={newEvent.title} onChange={handleChange} />
+              <FormControl fullWidth margin="normal">
+                <InputLabel htmlFor="eventCategory">Event Category</InputLabel>
+                <Select label="eventCategory" id="eventCategory" name="category" value={newEvent.category} onChange={handleSelectChange}>
+                  {categories.map((category) => (
+                    <MenuItem key={category.value} value={category.value}>
+                      {category.label}
+                    </MenuItem>
+                  ))}
+                </Select>
+              </FormControl>
+              <TextField fullWidth margin="normal" id="eventDescription" label="Event Description" name="description" value={newEvent.description} onChange={handleChange} />
+              <Grid container spacing={2} sx={{ pt: 2, justifyContent: 'space-between' }}>
+                <Grid item xs={12} md={6}>
+                  <SingleDatePicker label="Start Date" date={newEvent.startDate} onDateChange={(date) => setNewEvent((prev) => ({ ...prev, startDate: date }))} />
+                </Grid>
+                <Grid item xs={12} md={6}>
+                  <SingleDatePicker label="End Date" date={newEvent.endDate} onDateChange={(date) => setNewEvent((prev) => ({ ...prev, endDate: date }))} />
+                </Grid>
               </Grid>
-              <Grid item xs={12} md={6}>
-                <SingleDatePicker label="End Date" date={newEvent.endDate} onDateChange={(date) => setNewEvent((prev) => ({ ...prev, endDate: date }))} />
-              </Grid>
-            </Grid>
-          </TabPanel>
+            </TabPanel>
 
-          <TabPanel value={tabValue} index={1}>
-            <TextField fullWidth margin="normal" id="eventPlace" label="Event Place" name="place" value={newEvent.place} onChange={handleChange} />
-            <LocationPicker onLocationSelected={handleLocationSelected} />
-          </TabPanel>
+            <TabPanel value={tabValue} index={1}>
+              <TextField fullWidth margin="normal" id="eventPlace" label="Event Place" name="place" value={newEvent.place} onChange={handleChange} />
+              <LocationPicker onLocationSelected={handleLocationSelected} />
+            </TabPanel>
 
-          <TabPanel value={tabValue} index={2}>
-            <ImageUploadBox onImagesUpload={handleImagesUpload} />
-          </TabPanel>
+            <TabPanel value={tabValue} index={2}>
+              <ImageUploadBox onImagesUpload={handleImagesUpload} />
+            </TabPanel>
 
-          <TabPanel value={tabValue} index={3}>
-            <TextField fullWidth margin="normal" id="ticketPrice" label="Ticket Price" name="ticketPrice" value={newEvent.ticketPrice} onChange={handleChange} />
-          </TabPanel>
+            <TabPanel value={tabValue} index={3}>
+              <TextField fullWidth margin="normal" id="ticketPrice" label="Ticket Price" name="ticketPrice" value={newEvent.ticketPrice} onChange={handleChange} />
+            </TabPanel>
+          </Box>
 
-          <Box mt={2} display="flex" justifyContent="flex-end">
-            <Button onClick={handleSubmit} variant="contained" color="primary">
+          <Box mt={2} display="flex" justifyContent="center">
+            <Button onClick={handleSubmit} variant="contained" color="primary" sx={{ paddingX: '80px' }}>
               Save
             </Button>
-            <Button onClick={onClose} variant="contained" color="secondary" style={{ marginLeft: '10px' }}>
+            <Button onClick={onClose} variant="contained" color="secondary" sx={{ paddingX: '80px', marginLeft: '20px' }}>
               Close
             </Button>
           </Box>

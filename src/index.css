@@ -10,6 +10,7 @@
 }
 .login-form_title {
   padding-bottom: 10px;
+  color: #556cd6;
 }
 .login-form_password,
 .login-form_email {
@@ -20,6 +21,19 @@
 }
 .login-form .MuiButton-root {
   margin-top: 10px;
+}
+
+.login-form_forgot-password {
+  margin-top: 10px !important;
+}
+
+.login-form_signup-link {
+  margin-top: 10px !important;
+}
+
+.link-style {
+  text-decoration: none;
+  color: #556cd6;
 }
 
 @media (max-width: 768px) {
@@ -54,7 +68,8 @@
     margin-top: 20px;
   }
 }
-.login-mail-error, .login-password-error{
+.login-mail-error,
+.login-password-error {
   color: red;
 }
 
@@ -70,6 +85,7 @@
 }
 .signup-form_title {
   padding-bottom: 10px;
+  color: #556cd6;
 }
 .signup-form_password,
 .signup-form_email {
@@ -112,6 +128,7 @@
   }
 }
 
-.signup-mail-error , .signup-password-error{
+.signup-mail-error,
+.signup-password-error {
   color: red;
 }

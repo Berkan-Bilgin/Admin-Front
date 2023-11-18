@@ -2,6 +2,7 @@ import { Formik, Field, Form, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import { Button, TextField, Typography, Container } from '@mui/material';
 import { useSignup } from '../hooks/useSignup';
+import { Link } from 'react-router-dom';
 
 const Signup = () => {
   const { signup, error, isLoading } = useSignup();
@@ -34,6 +35,13 @@ const Signup = () => {
             <Button className="signup-form_submit" variant="contained" color="primary" fullWidth type="submit">
               Sign Up
             </Button>
+
+            <Typography variant="body2" className="login-form_signup-link">
+              Already have an account?{' '}
+              <Link className="link-style" to="/login">
+                Login
+              </Link>
+            </Typography>
           </Form>
         </Formik>
       </Container>

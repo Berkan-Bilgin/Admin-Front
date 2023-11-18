@@ -109,7 +109,7 @@ const EventTable = () => {
           Add Event
         </Button>
       </Box>
-      <Box mx="20px" mt="20px">
+      <Box mx="auto" mt="20px" width="1300px">
         <DataGrid
           slots={{
             toolbar: GridToolbar,
