@@ -11,7 +11,9 @@ export interface IEvent {
     lat: number;
     lng: number;
   };
-  googleMapsLink: string;
-  ticketPrice: string;
-  eventImages: any[];
+  googleMapsLink?: string;
+  ticketPrice?: string;
+  eventImages?: any[];
+  images?: string[];
+  online?: boolean;
 }
