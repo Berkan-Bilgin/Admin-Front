@@ -1,9 +1,8 @@
 import { useEffect } from 'react';
-
 import { useEventContext } from '../hooks/useEventContext';
 import { useAuthContext } from '../hooks/useAuthContext';
-import axios from 'axios';
 import EventTable from '../components/Event/EventTable';
+import { fetchEvents } from '../services/eventService';
 
 const Home = () => {
   const { dispatch } = useEventContext();
@@ -13,27 +12,22 @@ const Home = () => {
   } = useAuthContext();
 
   useEffect(() => {
-    const fetchEvents = async () => {
+    const updateEvents = async () => {
+      if (!user || !user.token) {
+        console.log('Kullanıcı veya token bilgisi eksik.');
+        return;
+      }
       try {
-        const response = await axios.get('http://localhost:3000/api/event');
-
-        console.log(user);
-
-        console.log('events', response.data);
-        dispatch({ type: 'SET_EVENTS', payload: response.data });
-      } catch (error: any) {
-        console.error('Fetching events failed: ', error);
-        if (error.response) {
-          console.error('Server Error: ', error.response.data);
-        }
+        console.log('Token:', user.token);
+        const eventsData = await fetchEvents({ Authorization: `Bearer ${user.token}` });
+        dispatch({ type: 'SET_EVENTS', payload: eventsData });
+      } catch (error) {
+        console.error('Error updating events:', error);
       }
     };
-    console.log(user);
 
-    if (user) {
-      fetchEvents();
-    }
-  }, [dispatch, user]);
+    updateEvents();
+  }, [dispatch, user, user?.token]);
 
   return (
     <div>

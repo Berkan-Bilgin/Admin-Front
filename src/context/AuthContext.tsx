@@ -1,4 +1,3 @@
-import axios from 'axios';
 import React, { createContext, useReducer, Dispatch, useEffect } from 'react';
 
 import { ReactNode } from 'react';
@@ -29,7 +28,6 @@ export const AuthContext = createContext<AuthContextProps>({
 export const authReducer = (state: IState, action: Action): IState => {
   switch (action.type) {
     case 'LOGIN':
-      axios.defaults.headers.common['Authorization'] = `Bearer" ${action.payload.token}`;
       return {
         ...state,
         user: action.payload,

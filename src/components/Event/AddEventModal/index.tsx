@@ -58,7 +58,7 @@ const AddEventModal: React.FC<AddEventModalProps> = ({ onClose }) => {
     setNewEvent((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handleTabChange = (event: React.ChangeEvent<{}>, newValue: number) => {
+  const handleTabChange = (_event: React.ChangeEvent<{}>, newValue: number) => {
     setTabValue(newValue);
   };
 

@@ -11,7 +11,7 @@ export const useLogin = () => {
     setError(null);
 
     try {
-      const response = await fetch('http://localhost:3000/api/user/login', {
+      const response = await fetch('https://plankton-app-ouh3i.ondigitalocean.app/api/user/login', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email, password }),
