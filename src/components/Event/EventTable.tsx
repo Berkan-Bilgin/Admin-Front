@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { Box, IconButton, Button } from '@mui/material';
 import { DataGrid, GridColDef, GridRenderCellParams, GridToolbar } from '@mui/x-data-grid';
 import { useEventContext } from '../../hooks/useEventContext';
@@ -41,7 +41,7 @@ const EventTable = () => {
   };
 
   const deleteEventMutation = useMutation(deleteEvent, {
-    onSuccess: (data, variables) => {
+    onSuccess: (_data, variables) => {
       const id = variables as string;
       enqueueSnackbar('Event Deleted successfully', {
         variant: 'error',
