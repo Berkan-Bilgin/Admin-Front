@@ -5,7 +5,7 @@ import { useSignup } from '../hooks/useSignup';
 import { Link } from 'react-router-dom';
 
 const Signup = () => {
-  const { signup, error, isLoading } = useSignup();
+  const { signup } = useSignup();
   const validationSchema = Yup.object().shape({
     email: Yup.string().max(50, 'E-mail address must be at most 50 characters').email('Please enter a valid e-mail address').required('E-mail is required'),
     password: Yup.string().min(8, 'Password must be at least 8 characters').required('Password is required'),
