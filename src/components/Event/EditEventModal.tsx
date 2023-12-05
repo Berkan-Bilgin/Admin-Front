@@ -29,7 +29,7 @@ const EditEventModal: React.FC<EditEventModalProps> = ({ event, onClose }) => {
 
   const [updatedEvent, setUpdatedEvent] = useState<IEvent>(event);
   const [tabValue, setTabValue] = useState(0);
-  const handleTabChange = (event: React.ChangeEvent<{}>, newValue: number) => {
+  const handleTabChange = (_event: React.ChangeEvent<{}>, newValue: number) => {
     setTabValue(newValue);
   };
 
