@@ -1,9 +1,9 @@
-import { Drawer, List, ListItem, ListItemText, IconButton, Typography, Divider } from '@mui/material';
+import { Drawer, List, ListItem, ListItemText, IconButton, Divider } from '@mui/material';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import { Link } from 'react-router-dom';
 
-const UserMenu = ({ drawerOpen, toggleDrawer }) => {
+const UserMenu = ({ drawerOpen, toggleDrawer }: { drawerOpen: boolean; toggleDrawer: () => void }) => {
   const listItemStyle = {
     padding: '12px 24px',
     borderRadius: '8px',

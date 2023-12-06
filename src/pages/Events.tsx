@@ -1,4 +1,3 @@
-import React from 'react';
 import EventTable from '../components/Event/EventTable';
 
 const Events = () => {

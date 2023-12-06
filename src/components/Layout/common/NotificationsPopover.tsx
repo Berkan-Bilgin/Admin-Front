@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { IconButton, Menu, MenuItem } from '@mui/material';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import { mockNotifications } from '../../../mock/notifications';
@@ -6,7 +6,7 @@ import { mockNotifications } from '../../../mock/notifications';
 const NotificationsPopover = () => {
   const [notificationsAnchorEl, setNotificationsAnchorEl] = useState(null);
 
-  const handleNotificationsOpen = (event) => {
+  const handleNotificationsOpen = (event: any) => {
     setNotificationsAnchorEl(event.currentTarget);
   };
 

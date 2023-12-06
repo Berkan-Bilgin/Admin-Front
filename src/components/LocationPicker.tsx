@@ -19,7 +19,7 @@ const LocationPicker: React.FC<LocationPickerProps> = ({ onLocationSelected }) =
     lng: number;
   } | null>(null);
 
-  const [currentCenter, setCurrentCenter] = useState(defaultCenter);
+  const [_currentCenter, setCurrentCenter] = useState(defaultCenter);
 
   const mapRef = useRef<google.maps.Map | null>(null);
 

@@ -9,7 +9,7 @@ const Login = () => {
     email: Yup.string().max(50, 'E-mail address must be at most 50 characters').email('Please enter a valid e-mail address').required('E-mail is required'),
     password: Yup.string().min(8, 'Password must be at least 8 characters').required('Password is required'),
   });
-  const { login, error, isLoading } = useLogin();
+  const { login } = useLogin();
 
   const handleSubmit = async (values: { email: string; password: string }, { setSubmitting }: any) => {
     console.log(values.email, values.password);

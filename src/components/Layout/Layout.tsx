@@ -1,8 +1,6 @@
 import React, { useState } from 'react';
-import { Drawer, List, ListItem, ListItemText, AppBar, Toolbar, IconButton, Typography, Divider } from '@mui/material';
-import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
+import { Toolbar, IconButton, Typography, AppBar } from '@mui/material';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
-import { Link } from 'react-router-dom';
 import { useAuthContext } from '../../hooks/useAuthContext';
 import { useLogout } from '../../hooks/useLogout';
 import LanguagePopover from './common/LanguagePopover';
